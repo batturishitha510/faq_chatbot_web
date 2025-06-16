@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ Chatbot</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #2c3e50;
+      font-size: 36px;
+    }
+
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input[type="text"] {
+      padding: 12px 20px;
+      width: 320px;
+      border: 2px solid #3498db;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      box-shadow: 0 0 10px #3498db66;
+      transition: 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: 0 0 15px #3498dbaa;
+    }
+
+    input[type="submit"] {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #217dbb;
+    }
+
+    .chat {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      width: 520px;
+      box-shadow: 0 0 18px #00000022;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .chat p {
+      font-size: 18px;
+    }
+
+    .typewriter {
+      display: inline-block;
+      overflow: hidden;
+      border-right: .15em solid #3498db;
+      white-space: nowrap;
+      animation: typing 2.5s steps(50, end), blink-caret 0.75s step-end infinite;
+      max-width: 100%;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #3498db; }
+    }
+
+    .facts-container {
+      margin-top: 20px;
+      padding: 15px 20px;
+      background-color: #eaf6ff;
+      border-left: 5px solid #3498db;
+      border-radius: 10px;
+    }
+
+    .facts-container h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+
+    .fact {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 8px 0;
+    }
+
+    .fact-icon {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>FAQ Chatbot</h1>
+  <form method="POST">
+    <input type="text" name="question" placeholder="Ask a question about Python, CSS, HTML...">
+    <input type="submit" value="Ask">
+  </form>
+
+  {% if answer %}
+  <div class="chat">
+    <p><strong>Bot:</strong> <span class="typewriter">{{ answer }}</span></p>
+
+    {% if facts %}
+    <div class="facts-container">
+      <h3>💡 Fun Facts</h3>
+      {% for fact in facts %}
+      <div class="fact">
+        <svg class="fact-icon" fill="#3498db" viewBox="0 0 24 24">
+          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+        </svg>
+        <span>{{ fact }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+</body>
+</html>
